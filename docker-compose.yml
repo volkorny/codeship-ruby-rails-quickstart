@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app:
+    build: .
+    command: /bin/bash -c 'sleep 5 && bundle exec rake db:migrate && rails server'
+    ports:
+      - "3000:3000"
+    environment:
+      PGHOST: pg_db
+      PGUSER: sample_postgres_user
+      PGPASSWORD: sample_postgres_password
+      PGDATABASE: postgres
+      RAILS_ENV: development
+    links:
+      - pg_db
+  pg_db:
+    image: postgres:9.6.5
+    environment:
+      POSTGRES_USER: sample_postgres_user
+      POSTGRES_PASSWORD: sample_postgres_password
+      POSTGRES_DATABASE: postgres

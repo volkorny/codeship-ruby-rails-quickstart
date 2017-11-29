@@ -1,0 +1,20 @@
+# Docker Compose-like syntax, see here for details:
+# https://documentation.codeship.com/pro/builds-and-configuration/services/
+app:
+  build:
+    image: codeship/ruby-rails-quickstart
+    dockerfile: Dockerfile
+  environment:
+    PGHOST: pg_db
+    PGUSER: sample_postgres_user
+    PGPASSWORD: sample_postgres_password
+    PGDATABASE: postgres
+    RAILS_ENV: test
+  links:
+    - pg_db
+pg_db:
+  image: postgres:9.6.5
+  environment:
+    POSTGRES_USER: sample_postgres_user
+    POSTGRES_PASSWORD: sample_postgres_password
+    POSTGRES_DATABASE: postgres
