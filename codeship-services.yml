@@ -10,7 +10,7 @@ app:
     PGPASSWORD: sample_postgres_password
     PGDATABASE: postgres
     RAILS_ENV: test
-  links:
+  depends_on:
     - pg_db
 pg_db:
   image: postgres:9.6.5
