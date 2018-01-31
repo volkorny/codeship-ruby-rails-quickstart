@@ -13,7 +13,7 @@ app:
   depends_on:
     - pg-db
 pg-db:
-  image: postgres:9.6.5
+  image: healthcheck/postgres
   environment:
     POSTGRES_USER: sample_postgres_user
     POSTGRES_PASSWORD: sample_postgres_password
