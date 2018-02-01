@@ -14,7 +14,7 @@ services:
     depends_on:
       - pg-db
   pg-db:
-    image: healthcheck/postgres
+    image: healthcheck/postgres:alpine
     environment:
       POSTGRES_USER: sample_postgres_user
       POSTGRES_PASSWORD: sample_postgres_password
