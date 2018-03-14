@@ -12,6 +12,7 @@ app:
     RAILS_ENV: test
   depends_on:
     - pg-db
+   cached: true
 pg-db:
   image: healthcheck/postgres:alpine
   environment:
