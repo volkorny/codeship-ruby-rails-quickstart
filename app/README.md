@@ -56,4 +56,4 @@ $ git branch -a
 A branch called `remotes/orgin/foo-bar` can be checked out using `git checkout foo-bar`.
 
 For more information, see the
-[*Ruby on Rails Tutorial* book](http://www.railstutorial.org/book).
+[*Ruby on Rails* Tutorial book](http://www.railstutorial.org/book).
