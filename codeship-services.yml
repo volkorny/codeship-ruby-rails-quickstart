@@ -5,6 +5,7 @@ app:
     image: codeship/ruby-rails-quickstart
     dockerfile: Dockerfile
   environment:
+    # env var touchpoints for Rails app -- https://github.com/codeship-library/ruby-rails-quickstart/blob/master/app/config/database.yml
     PGHOST: pg-db
     PGUSER: sample_postgres_user
     PGPASSWORD: sample_postgres_password
@@ -16,6 +17,7 @@ app:
 pg-db:
   image: healthcheck/postgres:alpine
   environment:
+    # env vars added per instructions on PostgreSQL Docker Hub page -- https://hub.docker.com/_/postgres/
     POSTGRES_USER: sample_postgres_user
     POSTGRES_PASSWORD: sample_postgres_password
     POSTGRES_DATABASE: postgres
