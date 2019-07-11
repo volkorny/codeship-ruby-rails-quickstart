@@ -5,7 +5,10 @@
 
 ## Local Setup
 - Boot up app on local machine with [Docker Compose](https://docs.docker.com/compose/gettingstarted/) -- `docker-compose up`
-- Run a Codeship Pro build on your local machine with our [CLI tool](https://documentation.codeship.com/pro/builds-and-configuration/cli/) -- `jet steps`
+- Hop over to http://localhost:3000/ to confirm that app is up and running via Docker Compose
+- Shut down app with `docker-compose down`
+- Now run a Codeship Pro build on your local machine with our [CLI tool](https://documentation.codeship.com/pro/builds-and-configuration/cli/). Install, then run `jet steps`
+- `jet steps` process will follow instructions of `codeship-steps.yml`, building/pulling Docker images as needed then proceeding to spin up a Docker container for each step, executing its command in isolation. If you wish for work to persist between steps/containers, then consider setting up [Docker volumes](https://documentation.codeship.com/pro/builds-and-configuration/docker-volumes/) on your `codeship-services.yml`.
 
 ## SCM Setup
 - Initialize as a new git repo -- `rm -rf .git && git init && git add . && git commit -m 'first commit'`

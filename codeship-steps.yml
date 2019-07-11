@@ -1,6 +1,46 @@
 # This is where we define the test steps that would be run in a Codeship Pro build.
-# The build passes as long as every test step returns with a non-zero exit code.
+# The build passes as long as every test step/container returns with a non-zero exit code.
 # See here for more: https://documentation.codeship.com/pro/builds-and-configuration/steps/
-- name: run_rails_test
-  command: /bin/bash -c 'bundle exec rake db:migrate && rails test' # bash wrapper not required unless passing along env variables or combining commands
-  service: app # our command will run on an instance of the `app` service that we've defined in the `codeship-services.yml` file
+
+- name: migrate db
+  command: bundle exec rake db:migrate
+  service: app # this migration command will run on the `app` service as defined in the `codeship-services.yml` file
+- command: rails test # migration work persists to next step/container only because we have defined a Docker volume in the `codeship-services.yml` (https://documentation.codeship.com/pro/builds-and-configuration/services/)
+  service: app
+
+# parallel grouping of steps (still in networked isolation)
+- type: parallel
+  steps:
+    - command: echo apple
+      service: busybox
+    - command: echo banana
+      service: busybox
+    - command: echo cherry
+      service: busybox
+    - command: echo date
+      service: busybox
+
+# serial order of steps is default, but can also be asserted in a grouping of its own
+- type: serial
+  steps:
+    - command: /bin/sh -c 'whoami && echo 1' # shell wrapper not required unless passing along env variables or combining commands
+      service: busybox
+    - command: echo 2
+      service: busybox
+    - command: echo 3
+      service: busybox
+    - command: echo 4
+      service: busybox
+      exclude: master # `exclude` attribute to blacklist step commands when running build for a given branch name
+    - type: parallel
+      steps:
+        - name: master branch check # provide a `name` otherwise build UI will default to literal step command
+          command: /bin/sh -c 'echo $CI_BRANCH branch detected'
+          tag: master # `tag` attribute to whitelist branch names
+          service: busybox
+        - command: /bin/sh -c 'echo $CI_BRANCH branch detected'
+          tag: ^(qa|staging) # regex accepted for whitelisting/blacklisting
+          service: busybox
+        - command: /bin/sh -c 'echo $CI_BRANCH branch detected'
+          tag: ^dev- # to blacklist/whitelist effectively on local machine via `jet steps`, set both `--ci-branch` and `--tag` flags (see `jet steps --help`)
+          service: busybox

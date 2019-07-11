@@ -17,7 +17,11 @@ app:
 pg-db:
   image: healthcheck/postgres:alpine
   environment:
-    # env vars added per instructions on PostgreSQL Docker Hub page -- https://hub.docker.com/_/postgres/
+    # env vars defined per instructions on PostgreSQL Docker Hub page -- https://hub.docker.com/_/postgres/
     POSTGRES_USER: sample_postgres_user
     POSTGRES_PASSWORD: sample_postgres_password
     POSTGRES_DATABASE: postgres
+  volumes:
+    - ./postgres-data:/var/lib/postgresql/data
+busybox:
+  image: busybox
