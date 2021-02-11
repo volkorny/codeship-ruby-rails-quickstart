@@ -1,7 +1,7 @@
 # Ruby/Rails Quickstart with Codeship Pro
 [ ![Codeship Status for whiteotter/ruby-rails-quickstart](https://app.codeship.com/projects/6124df80-b6cd-0135-c039-5e21ca376bff/status?branch=master)](https://app.codeship.com/projects/258703)
 
-#test 2
+#test 3
 
 [Michael Hartl's Rails Tutorial example](https://www.railstutorial.org/) configured for testing on [Codeship Pro](https://codeship.com/features/pro)
 
